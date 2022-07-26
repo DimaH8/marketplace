@@ -3,9 +3,10 @@ public class Product {
 	private int id;
 	private String name;
 	private int price;
+	private static int idGenerator = 100;
 	
-	public Product(int id, String name, int price) {
-		this.id = id;
+	public Product(String name, int price) {
+		this.id = idGenerator++;
 		this.name = name;
 		this.price = price;
 	}
@@ -22,5 +23,7 @@ public class Product {
 	public int getPrice() {
 		return price;
 	}
-	
+	public String getProductName() {
+		return name;
+	}
 }

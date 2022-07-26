@@ -11,6 +11,8 @@ public class Marketplace {
 		System.out.println("3. Buy product");
 		System.out.println("4. Display list of user products");
 		System.out.println("5. Display user that bought product");
+		System.out.println("6. Add new user");
+		System.out.println("7. Add new product");
 	}
 	
 	private static void displayUsers(ArrayList<User> users) {
@@ -90,11 +92,49 @@ public class Marketplace {
 		}
 	}
 	
+	private static void addUser(String firstName, String lastName, int money, ArrayList<User> users) {
+		if (firstName.length() == 0 && lastName.length() == 0) {
+			throw new RuntimeException("First name or last name is empty!");
+		}
+		
+		for (int i = 0; i < users.size(); i++) {
+			if (users.get(i).getFirstName().equals(firstName) && users.get(i).getLastName().equals(lastName)) {
+				throw new RuntimeException("This first name or last name is already exist!");
+			}
+		}
+		if (money < 0) {
+			throw new RuntimeException("The entered amount is incorrect! Please enter integral number"); 
+		}
+		User username = new User(firstName, lastName, money);
+		users.add(username);
+		System.out.println("Added user " + firstName + " " + lastName + " successfully!");
+		System.out.println("");
+	}
+	
+	private static void addProduct(String productName, int price, ArrayList<Product> products) {
+		if (productName.length() == 0) {
+			throw new RuntimeException("Name is empty!");
+		}
+		
+		for (int i = 0; i < products.size(); i++) {
+			if (products.get(i).getProductName().equals(productName)) {
+				throw new RuntimeException("This product is already exist!");
+			}
+		}
+		if (price <= 0) {
+			throw new RuntimeException("The entered amount is incorrect! Please enter positive number"); 
+		}
+		Product nameProduct = new Product(productName, price);
+		products.add(nameProduct);
+		System.out.println("Added product " + productName + " successfully!");
+		System.out.println("");
+	}
+	
 	public static void main(String[] args) {
 		
-		User peter = new User(10, "Peter", "Smith", 500);
-		User sam = new User(11, "Sam", "Adams", 50);
-		User maria = new User(12, "Maria", "Melnyk", 100);
+		User peter = new User("Peter", "Smith", 500);
+		User sam = new User("Sam", "Adams", 50);
+		User maria = new User("Maria", "Melnyk", 100);
 		
 		ArrayList<User> users = new ArrayList<User>();
 		users.add(peter);
@@ -102,9 +142,9 @@ public class Marketplace {
 		users.add(maria);
 		
 		ArrayList<Product> products = new ArrayList<Product>();
-		products.add(new Product(100, "Potato", 45));
-		products.add(new Product(101, "Tomato", 70));
-		products.add(new Product(102, "Eggs", 20));
+		products.add(new Product("Potato", 45));
+		products.add(new Product("Tomato", 70));
+		products.add(new Product("Eggs", 20));
 			
 		boolean isWorking = true;
 		Scanner in = new Scanner(System.in);
@@ -145,7 +185,23 @@ public class Marketplace {
 						System.out.println("Please, enter ID of product");
 						productId = in.nextInt();
 						displayUsersByProducts(users, products, productId);
-						break;		
+						break;
+					case 6:
+						System.out.println("Please, enter first name of user");
+						String userFirstName = in.next();
+						System.out.println("Please, enter last name of user");
+						String userLastName = in.next();
+						System.out.println("Please, enter amount of money");
+						int amountofMoney = in.nextInt();
+						addUser(userFirstName, userLastName, amountofMoney, users);
+						break;
+					case 7:
+						System.out.println("Please, enter name of product");
+						String productName = in.next();
+						System.out.println("Please, enter price of product");
+						int price = in.nextInt();
+						addProduct(productName, price, products);
+						break;
 					default:
 						System.out.println("Something wrong! Please, choose one number of the option from the menu");
 						menuText();
@@ -159,5 +215,6 @@ public class Marketplace {
 		in.close();
 		System.out.println("Thank you for using our Marketplace! Have a nice day!");
 	}
+
 
 }

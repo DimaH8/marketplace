@@ -1,21 +1,21 @@
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class User {
 	private int id = 0; 
 	private String firstName;
 	private String lastName;
 	private int amountOfMoney;
+	private static int idGenerator = 10;
 	private ArrayList<Product> userProducts;
 	
-	public User(int id, String firstName, String lastName, int money) {
-		this.id = id;
+	public User(String firstName, String lastName, int money) {
+		this.id = idGenerator++;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.amountOfMoney = money;
 		userProducts = new ArrayList<Product>();
 	}
-	
+
 	public int getId() {
 		return id;
 	}
@@ -57,4 +57,11 @@ public class User {
 		return exist;
 	}
 	
+	public String getFirstName() {
+		return firstName;
+	}
+	
+	public String getLastName() {
+		return lastName;
+	}
 }
