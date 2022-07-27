@@ -13,6 +13,8 @@ public class Marketplace {
 		System.out.println("5. Display user that bought product");
 		System.out.println("6. Add new user");
 		System.out.println("7. Add new product");
+		System.out.println("8. Delete user");
+		System.out.println("9. Delete product");
 	}
 	
 	private static void displayUsers(ArrayList<User> users) {
@@ -130,6 +132,40 @@ public class Marketplace {
 		System.out.println("");
 	}
 	
+	private static void deleteUser(int idDeleteUser, ArrayList<User> users) {
+		boolean count = false;
+		for (int i = 0; i < users.size(); i++) {
+			if (users.get(i).getId() == idDeleteUser) {
+			count = true;
+			users.remove(i);
+			}	
+		}
+		if (count == false) throw new RuntimeException("User with this ID isn't exist!");		
+		System.out.println("Deleted user with ID " + idDeleteUser + " successfully!");
+		System.out.println("");
+	}
+	
+	private static void deleteProduct(int idDeleteProduct, ArrayList<Product> products, ArrayList<User> users) {
+		boolean count = false;
+		for (int i = 0; i < products.size(); i++) {
+			if (products.get(i).getId() == idDeleteProduct) {
+				count = true;
+				Product product = null;
+				product = 
+				products.remove(i);
+				for (int j = 0; j < users.size(); j++) {
+					if (users.get(j).hasProduct(product) == true) {
+						users.get(j).deleteProduct(product);
+					}
+				}
+			}
+		}
+		if (count == false) throw new RuntimeException("Product with this ID isn't exist!");
+		System.out.println("Deleted user with ID " + idDeleteProduct + " successfully!");
+		System.out.println("");
+	}
+	
+	
 	public static void main(String[] args) {
 		
 		User peter = new User("Peter", "Smith", 500);
@@ -202,6 +238,16 @@ public class Marketplace {
 						int price = in.nextInt();
 						addProduct(productName, price, products);
 						break;
+					case 8:
+						System.out.println("Please, enter id of user");
+						int idDeleteUser = in.nextInt();
+						deleteUser(idDeleteUser, users);
+						break;
+					case 9:
+						System.out.println("Please, enter id of product");
+						int idDeleteProduct = in.nextInt();
+						deleteProduct(idDeleteProduct, products, users);
+						break;
 					default:
 						System.out.println("Something wrong! Please, choose one number of the option from the menu");
 						menuText();
@@ -215,6 +261,4 @@ public class Marketplace {
 		in.close();
 		System.out.println("Thank you for using our Marketplace! Have a nice day!");
 	}
-
-
 }

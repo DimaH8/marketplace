@@ -24,6 +24,14 @@ public class User {
 		return amountOfMoney;
 	}
 	
+	public String getFirstName() {
+		return firstName;
+	}
+	
+	public String getLastName() {
+		return lastName;
+	}
+	
 	@Override
 	public String toString() {
 		return String.format("%d\t\t%s\t\t%s\t\t%d", id, firstName, lastName, amountOfMoney);
@@ -57,11 +65,7 @@ public class User {
 		return exist;
 	}
 	
-	public String getFirstName() {
-		return firstName;
-	}
-	
-	public String getLastName() {
-		return lastName;
+	public void deleteProduct(Product product) {
+		userProducts.remove(product);
 	}
 }
