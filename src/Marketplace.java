@@ -136,8 +136,9 @@ public class Marketplace {
 		boolean count = false;
 		for (int i = 0; i < users.size(); i++) {
 			if (users.get(i).getId() == idDeleteUser) {
-			count = true;
-			users.remove(i);
+				count = true;
+				users.remove(i);
+				break;
 			}	
 		}
 		if (count == false) throw new RuntimeException("User with this ID isn't exist!");		
@@ -150,18 +151,17 @@ public class Marketplace {
 		for (int i = 0; i < products.size(); i++) {
 			if (products.get(i).getId() == idDeleteProduct) {
 				count = true;
-				Product product = null;
-				product = 
-				products.remove(i);
+				Product product = products.remove(i);
 				for (int j = 0; j < users.size(); j++) {
 					if (users.get(j).hasProduct(product) == true) {
 						users.get(j).deleteProduct(product);
 					}
 				}
+				break;
 			}
 		}
 		if (count == false) throw new RuntimeException("Product with this ID isn't exist!");
-		System.out.println("Deleted user with ID " + idDeleteProduct + " successfully!");
+		System.out.println("Deleted product with ID " + idDeleteProduct + " successfully!");
 		System.out.println("");
 	}
 	
